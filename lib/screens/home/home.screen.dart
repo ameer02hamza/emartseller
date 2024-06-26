@@ -1,7 +1,9 @@
 import 'package:emartseller/const/images.dart';
+import 'package:emartseller/screens/products/productDetails.screen.dart';
 import 'package:emartseller/widgets/appbar.widget.dart';
 import 'package:emartseller/widgets/dashboardButton.widget.dart';
 import 'package:emartseller/widgets/textStyle.widget.dart';
+import 'package:get/get.dart';
 import '../../const/const.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -29,29 +31,33 @@ class HomeScreen extends StatelessWidget {
               children: [
                 dashboardButton(count: "4.6", title: rating, icon: icStar),
                 dashboardButton(
-                    count: "503"
-                        .numCurrency
-                        .toString(),
+                    count: "503".numCurrency.toString(),
                     title: totalSales,
-                    icon:icAccount)
+                    icon: icAccount)
               ],
             ),
             10.heightBox,
             const Divider(),
             semiBoldText(text: popular, color: fontGrey, size: 18),
-               10.heightBox,
-               ListView(
-                physics:const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                children: List.generate(3, (index){
-                  return ListTile(
-                    onTap: () {},
-                    leading: Image.asset(imgProduct).box.roundedSM.clip(Clip.antiAlias).make(),
-                    title: boldText(text: "Product Name", color: fontGrey),
-                    subtitle: boldText(text: "\$2000", color: darkGrey),
-                  );
-                }),
-               )
+            10.heightBox,
+            ListView(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              children: List.generate(3, (index) {
+                return ListTile(
+                  onTap: () {
+                    Get.to(() => const ProductDetailsScreen());
+                  },
+                  leading: Image.asset(imgProduct)
+                      .box
+                      .roundedSM
+                      .clip(Clip.antiAlias)
+                      .make(),
+                  title: boldText(text: "Product Name", color: fontGrey),
+                  subtitle: boldText(text: "\$2000", color: darkGrey),
+                );
+              }),
+            )
           ],
         ),
       ),

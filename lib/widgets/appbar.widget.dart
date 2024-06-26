@@ -10,7 +10,7 @@ AppBar appBarWidget({required title}){
           Center(
             child: boldText(
                 text: intl.DateFormat.yMMMd().format(DateTime.now()),
-                color: fontGrey),
+                color: fontGrey).box.margin(const EdgeInsets.only(right: 10)).make(),
           )
         ],
       );

@@ -22,7 +22,7 @@ class OrderScreen extends StatelessWidget {
             child: Column(
               children: List.generate(20, (index) {
                 return ListTile(
-                    tileColor: textfieldGrey,
+                    tileColor: primaryColor.withOpacity(0.2),
                     trailing: boldText(text: "\$2000", color: primaryColor),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),

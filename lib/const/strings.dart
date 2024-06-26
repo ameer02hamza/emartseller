@@ -1,5 +1,6 @@
 //Auth Screens
 const appname = "eMart Seller App",
+appversion = "v1.0.0",
     login = "Login",
     welcome = "Hi, Welcome to",
     email = "Email",

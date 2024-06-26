@@ -43,6 +43,14 @@ class ProductDetailsScreen extends StatelessWidget {
                 children: [
                   boldText(text: "Title", size: 16, color: fontGrey),
                   10.heightBox,
+                  Row(
+                    children: [
+                      boldText(text: "Category", size: 16, color: fontGrey),
+                      5.widthBox,
+                      generalText(
+                          text: "SubCategory", size: 14, color: textfieldGrey),
+                    ],
+                  ),
                   VxRating(
                     isSelectable: false,
                     onRatingUpdate: (value) {},
@@ -102,14 +110,13 @@ class ProductDetailsScreen extends StatelessWidget {
                       )
                     ],
                   ).box.padding(const EdgeInsets.all(8)).make(),
-                 const Divider(),
+                  const Divider(),
                   boldText(text: "Description", size: 16, color: fontGrey),
                   10.heightBox,
                   generalText(
                       text:
                           "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                          color: fontGrey
-                          ),
+                      color: fontGrey),
                 ],
               ),
             ),

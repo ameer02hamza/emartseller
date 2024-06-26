@@ -4,7 +4,12 @@ import 'package:get/get.dart';
 
 Widget productDropdown({required title}) {
   return DropdownButtonHideUnderline(
-          child: DropdownButton(
+          child: DropdownButtonFormField(
+    // validator: (value) {
+    //   if (value == null) {
+    //     return "Please select a category";
+    //   }
+    // },
     hint: generalText(text: title, color: fontGrey),
     value: null,
     items: [],
@@ -17,4 +22,4 @@ Widget productDropdown({required title}) {
       .width(Get.context!.screenWidth - 20)
       .make();
 }
-// 
+// DropdownButtonFormField

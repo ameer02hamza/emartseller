@@ -33,7 +33,13 @@ class PorductScreen extends StatelessWidget {
                       .clip(Clip.antiAlias)
                       .make(),
                   title: boldText(text: "Product Name", color: fontGrey),
-                  subtitle: boldText(text: "\$2000", color: darkGrey),
+                  subtitle: Row(
+                    children: [
+                      boldText(text: "\$2000", color: darkGrey),
+                      10.widthBox,
+                      boldText(text: "featured", color: successColor),
+                    ],
+                  ),
                   trailing: VxPopupMenu(
                       menuBuilder: () {
                         return Column(
