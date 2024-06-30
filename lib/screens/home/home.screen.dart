@@ -46,7 +46,9 @@ class HomeScreen extends StatelessWidget {
               children: List.generate(3, (index) {
                 return ListTile(
                   onTap: () {
-                    Get.to(() => const ProductDetailsScreen());
+                    Get.to(() => ProductDetailsScreen(
+                          productData: null,
+                        ));
                   },
                   leading: Image.asset(imgProduct)
                       .box

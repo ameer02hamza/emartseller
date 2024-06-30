@@ -14,4 +14,11 @@ class StoreService {
         .where("vendor", isEqualTo: currentUser!.uid)
         .snapshots();
   }
+
+  static getProductsByVendor() {
+    return firebaseStore
+        .collection(productCollections)
+        .where("vendor_id", isEqualTo: currentUser!.uid)
+        .snapshots();
+  }
 }

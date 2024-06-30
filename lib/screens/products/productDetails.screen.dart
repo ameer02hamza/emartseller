@@ -3,13 +3,14 @@ import 'package:emartseller/const/images.dart';
 import 'package:emartseller/widgets/textStyle.widget.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+  var productData;
+  ProductDetailsScreen({super.key, required this.productData});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: boldText(text: "Product Details", color: fontGrey),
+        title: boldText(text: productData['p_name'], color: fontGrey),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -21,10 +22,10 @@ class ProductDetailsScreen extends StatelessWidget {
               autoPlay: true,
               enlargeCenterPage: true,
               viewportFraction: 1.0,
-              itemCount: 4,
+              itemCount: productData['p_imgs'].length,
               itemBuilder: (context, index) {
-                return Image.asset(
-                  imgProduct,
+                return Image.network(
+                  productData['p_imgs'][index],
                   fit: BoxFit.fill,
                   width: double.infinity,
                 )
@@ -41,14 +42,20 @@ class ProductDetailsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  boldText(text: "Title", size: 16, color: fontGrey),
+                  boldText(
+                      text: productData['p_name'], size: 16, color: fontGrey),
                   10.heightBox,
                   Row(
                     children: [
-                      boldText(text: "Category", size: 16, color: fontGrey),
+                      boldText(
+                          text: productData['p_category'],
+                          size: 16,
+                          color: fontGrey),
                       5.widthBox,
                       generalText(
-                          text: "SubCategory", size: 14, color: textfieldGrey),
+                          text: productData['p_subcat'],
+                          size: 14,
+                          color: textfieldGrey),
                     ],
                   ),
                   VxRating(
@@ -57,27 +64,32 @@ class ProductDetailsScreen extends StatelessWidget {
                     normalColor: textfieldGrey,
                     selectionColor: golden,
                     // maxRating: 5,
-                    count: 5, //int.parse(itemData['p_rating']),
+                    count: int.parse(productData[
+                        'p_rating']), //int.parse(itemData['p_rating']),
                     size: 25,
                     // stepInt: true,
                   ),
                   10.heightBox,
-                  boldText(text: " \$2000", size: 16, color: red),
+                  boldText(
+                      text: productData['p_price']
+                          .toString()
+                          .numCurrencyWithLocale(locale: 'en_US'),
+                      size: 16,
+                      color: red),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       boldText(text: "Colors: ", size: 16, color: fontGrey),
                       Row(
-                        children: List.generate(3, (index) {
+                        children: List.generate(productData['p_colors'].length,
+                            (index) {
                           return Stack(
                             alignment: Alignment.center,
                             children: [
                               VxBox()
                                   .roundedFull
-                                  .color(Vx.randomColor
-                                      // Color(
-                                      //   int.parse(itemData["p_colors"][index]))
-                                      )
+                                  .color(Color(int.parse(
+                                      productData['p_colors'][index])))
                                   .size(40, 40)
                                   .margin(
                                       const EdgeInsets.symmetric(horizontal: 4))
@@ -105,7 +117,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       boldText(text: "Quantity: ", size: 16, color: fontGrey),
                       10.widthBox,
                       semiBoldText(
-                        text: "10",
+                        text: productData['p_quantity'],
                         color: fontGrey,
                       )
                     ],
@@ -113,10 +125,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   const Divider(),
                   boldText(text: "Description", size: 16, color: fontGrey),
                   10.heightBox,
-                  generalText(
-                      text:
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                      color: fontGrey),
+                  generalText(text: productData['p_desc'], color: fontGrey),
                 ],
               ),
             ),
