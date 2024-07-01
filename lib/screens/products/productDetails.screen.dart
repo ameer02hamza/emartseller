@@ -88,8 +88,9 @@ class ProductDetailsScreen extends StatelessWidget {
                             children: [
                               VxBox()
                                   .roundedFull
-                                  .color(Color(int.parse(
-                                      productData['p_colors'][index])))
+                                  .color(Color(int.parse(productData['p_colors']
+                                          [index]
+                                      .toString())))
                                   .size(40, 40)
                                   .margin(
                                       const EdgeInsets.symmetric(horizontal: 4))

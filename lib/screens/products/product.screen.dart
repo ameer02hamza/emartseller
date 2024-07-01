@@ -1,4 +1,5 @@
 import 'package:emartseller/const/images.dart';
+import 'package:emartseller/controllers/products.controller.dart';
 import 'package:emartseller/screens/products/addNew.screen.dart';
 import 'package:emartseller/screens/products/productDetails.screen.dart';
 import 'package:emartseller/services/store.service.dart';
@@ -14,6 +15,7 @@ class PorductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ProductController());
     return Scaffold(
       appBar: appBarWidget(title: products),
       body: Padding(
@@ -68,16 +70,48 @@ class PorductScreen extends StatelessWidget {
                                 return Column(
                                   children: List.generate(
                                       popupMenuTitles.length,
-                                      (index) => Padding(
+                                      (i) => Padding(
                                           padding: const EdgeInsets.all(10),
                                           child: Row(children: [
-                                            Icon(popupMenuIcons[index]),
+                                            Icon(
+                                              popupMenuIcons[i],
+                                              color: data[index]
+                                                          ['is_featured'] &&
+                                                      i == 0
+                                                  ? successColor
+                                                  : fontGrey,
+                                            ),
                                             5.widthBox,
                                             generalText(
-                                                text: popupMenuTitles[index],
-                                                color: fontGrey)
+                                              text: data[index]
+                                                          ['is_featured'] &&
+                                                      i == 0
+                                                  ? "Remove feature"
+                                                  : popupMenuTitles[i],
+                                              color: data[index]
+                                                          ['is_featured'] &&
+                                                      i == 0
+                                                  ? successColor
+                                                  : fontGrey,
+                                            )
                                           ]).onTap(
-                                            () {},
+                                            () {
+                                              switch (i) {
+                                                case 0:
+                                                  controller.addRemoveFeature(
+                                                      data[index].id,
+                                                      data[index]
+                                                          ['is_featured']);
+                                                  break;
+                                                case 1:
+                                              
+                                                  break;
+                                                case 2:
+                                              controller.removeProduct(data[index].id,);
+                                                  break;
+                                                default:
+                                              }
+                                            },
                                           ))),
                                 )
                                     .box

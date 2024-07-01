@@ -14,7 +14,8 @@ Widget customTextArea({
     controller: controller,
     decoration: InputDecoration(
       counterText: "",
-      label: generalText(text: title, color: textfieldGrey),
+      label: boldText(text: title, color: textfieldGrey),
+ 
       hintStyle: const TextStyle(
         color: textfieldGrey,
       ),
