@@ -127,6 +127,41 @@ class ProductController extends GetxController {
     }
   }
 
+  updateProduct(context, docId) async {
+    try {
+      isLoading(true);
+      var store = firebaseStore.collection(productCollections).doc(docId);
+      await store.set({
+        "is_featured": false,
+        "p_category": categoryValue.value,
+        "p_desc": pDescController.text,
+        "p_name": pNameController.text,
+        "p_price": pPriceController.text,
+        "p_quantity": pQuantityController.text,
+        "p_rating": "0",
+        "p_seller": Get.find<HomeController>().userName.value,
+        "p_subcat": subCategoryValue.value,
+        "vendor_id": currentUser!.uid,
+        "p_colors": FieldValue.arrayUnion(
+            [Colors.amber.value, Colors.green.value, Colors.red.value]),
+        "p_imgs": FieldValue.arrayUnion(pImagesLink),
+        "p_wishlist": FieldValue.arrayUnion([]),
+        "featured_id": currentUser!.uid
+      }, SetOptions(merge: true));
+      isLoading(false);
+    } catch (e) {
+      isLoading(false);
+      VxToast.show(
+        context,
+        msg: "Error in adding product, Try again",
+        position: VxToastPosition.top,
+        bgColor: red,
+        textColor: white,
+        showTime: 5000,
+      );
+    }
+  }
+
   addRemoveFeature(docId, isFeatured) async {
     await firebaseStore.collection(productCollections).doc(docId).set(
         {"is_featured": !isFeatured, "featured_id": currentUser!.uid},

@@ -1,6 +1,7 @@
 import 'package:emartseller/const/images.dart';
 import 'package:emartseller/controllers/products.controller.dart';
 import 'package:emartseller/screens/products/addNew.screen.dart';
+import 'package:emartseller/screens/products/editProduct.screen.dart';
 import 'package:emartseller/screens/products/productDetails.screen.dart';
 import 'package:emartseller/services/store.service.dart';
 import 'package:emartseller/widgets/appbar.widget.dart';
@@ -16,6 +17,7 @@ class PorductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(ProductController());
+    var popCtrl = VxPopupMenuController();
     return Scaffold(
       appBar: appBarWidget(title: products),
       body: Padding(
@@ -66,6 +68,7 @@ class PorductScreen extends StatelessWidget {
                             ],
                           ),
                           trailing: VxPopupMenu(
+                              controller: popCtrl,
                               menuBuilder: () {
                                 return Column(
                                   children: List.generate(
@@ -96,6 +99,7 @@ class PorductScreen extends StatelessWidget {
                                             )
                                           ]).onTap(
                                             () {
+                                              popCtrl.hideMenu();
                                               switch (i) {
                                                 case 0:
                                                   controller.addRemoveFeature(
@@ -104,10 +108,15 @@ class PorductScreen extends StatelessWidget {
                                                           ['is_featured']);
                                                   break;
                                                 case 1:
-                                              
+                                                  Get.to(() =>
+                                                      EditProductScreen(
+                                                          productData:
+                                                              data[index]));
                                                   break;
                                                 case 2:
-                                              controller.removeProduct(data[index].id,);
+                                                  controller.removeProduct(
+                                                    data[index].id,
+                                                  );
                                                   break;
                                                 default:
                                               }

@@ -26,7 +26,7 @@ const dashboard = "Dashboard",
     products = "Products",
     generalSetting = "Setting",
     rating = "Ratings",
-    totalSales = "801",
+    totalSales = "Total Sales",
     popular = "Popular Products";
 //Products Screen
 const featured = "Featured", edit = "Edit", remove = "Remove";

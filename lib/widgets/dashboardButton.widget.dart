@@ -12,8 +12,8 @@ Widget dashboardButton({required title, required count, required icon}) {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            boldText(text: title, size: 16),
-            boldText(text: count, size: 20),
+            boldText(text: title, size: 14),
+            boldText(text: count, size: 12),
           ],
         ),
       ),

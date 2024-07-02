@@ -9,21 +9,21 @@ import 'package:get/get.dart';
 
 import '../../const/const.dart';
 
-class AddNewProduct extends StatefulWidget {
-  const AddNewProduct({super.key});
+class EditProductScreen extends StatefulWidget {
+  dynamic productData;
+  EditProductScreen({super.key, required this.productData});
 
   @override
-  State<AddNewProduct> createState() => _AddNewProductState();
+  State<EditProductScreen> createState() => _EditProductScreenState();
 }
 
-class _AddNewProductState extends State<AddNewProduct> {
+class _EditProductScreenState extends State<EditProductScreen> {
   var controller = Get.put(ProductController());
   bool isLoading = false;
   GlobalKey<FormState> formKey = GlobalKey();
   @override
   void initState() {
     getScreenData();
-
     super.initState();
   }
 
@@ -33,32 +33,29 @@ class _AddNewProductState extends State<AddNewProduct> {
     });
     await controller.getCategoryList();
     await controller.populateCategoryList();
+    controller.pNameController.text = widget.productData['p_name'];
+    controller.pPriceController.text = widget.productData['p_price'].toString();
+    controller.pQuantityController.text =
+        widget.productData['p_quantity'].toString();
+    controller.pDescController.text = widget.productData['p_desc'];
+    controller.categoryValue.value = widget.productData['p_category'];
+    controller
+        .populateSubCategoryList(controller.categoryValue.value.toString());
+    controller.subCategoryValue.value = widget.productData['p_subcat'];
+
     setState(() {
       isLoading = false;
     });
   }
 
-  addNewProduct() async {
-    if (controller.pImages.where((e) => e == null).toList().isNotEmpty) {
-      controller.isLoading.value = false;
-      VxToast.show(
-        context,
-        msg: "All Three Images are required",
-        position: VxToastPosition.top,
-        bgColor: red,
-        textColor: white,
-        showTime: 5000,
-      );
-      return;
-    }
+  updateProduct() async {
     if (formKey.currentState!.validate()) {
       controller.isLoading.value = true;
       if (controller.pImages.isNotEmpty) {
         await controller.uploadImages();
       }
-      await controller.uploadProduct(context);
+      await controller.updateProduct(context, widget.productData.id);
       controller.isLoading.value = false;
-      formKey.currentState!.reset();
       Get.back();
     }
   }
@@ -69,7 +66,7 @@ class _AddNewProductState extends State<AddNewProduct> {
       backgroundColor: primaryColor,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: white),
-        title: boldText(text: "Add New Product", color: white),
+        title: boldText(text: "${widget.productData['p_name']}", color: white),
         actions: [
           Obx(
             () => controller.isLoading.value
@@ -77,8 +74,8 @@ class _AddNewProductState extends State<AddNewProduct> {
                     padding: const EdgeInsets.only(right: 10),
                     child: loadingIndicator(color: white))
                 : TextButton(
-                    onPressed: addNewProduct,
-                    child: generalText(text: "Save", color: white)),
+                    onPressed: updateProduct,
+                    child: generalText(text: "Update", color: white)),
           )
         ],
       ),
@@ -136,8 +133,10 @@ class _AddNewProductState extends State<AddNewProduct> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: List.generate(
                               3,
-                              (index) => controller.pImages[index] != null
-                                  ? Image.file(controller.pImages[index],
+                              (index) => (controller.pImages[index] == null &&
+                                      widget.productData['p_imgs'].length > 0)
+                                  ? Image.network(
+                                          widget.productData['p_imgs'][index],
                                           fit: BoxFit.cover)
                                       .box
                                       // .color(lightGrey)
@@ -149,9 +148,14 @@ class _AddNewProductState extends State<AddNewProduct> {
                                       controller.pickProductImage(
                                           index, context);
                                     })
-                                  : productImages(
-                                          label: "Image ${index + 1}",
-                                          onPress: () {})
+                                  : Image.file(controller.pImages[index],
+                                          fit: BoxFit.cover)
+                                      .box
+                                      // .color(lightGrey)
+                                      .size(100, 100)
+                                      .clip(Clip.hardEdge)
+                                      .roundedSM
+                                      .make()
                                       .onTap(() {
                                       controller.pickProductImage(
                                           index, context);
