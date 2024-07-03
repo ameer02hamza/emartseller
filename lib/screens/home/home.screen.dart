@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emartseller/const/images.dart';
+import 'package:emartseller/controllers/home.controller.dart';
 import 'package:emartseller/screens/products/productDetails.screen.dart';
 import 'package:emartseller/services/store.service.dart';
 import 'package:emartseller/widgets/appbar.widget.dart';
@@ -14,6 +17,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.find<HomeController>();
     return Scaffold(
         appBar: appBarWidget(title: dashboard),
         body: Padding(
@@ -22,27 +26,39 @@ class HomeScreen extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        dashboardButton(
-                            count: '0', title: products, icon: icProducts),
-                        dashboardButton(
-                            count: "32", title: orders, icon: icOrders)
-                      ],
+                    Obx(
+                      () => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          dashboardButton(
+                              count: controller
+                                  .totalProducts.length, //. toString(),
+                              title: products,
+                              icon: icProducts),
+                          dashboardButton(
+                              count: "32", title: orders, icon: icOrders)
+                        ],
+                      ),
                     ),
                     10.heightBox,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        dashboardButton(
-                            count: "4.6", title: rating, icon: icStar),
-                        dashboardButton(
-                          count: "503".numCurrency.toString(),
-                          title: totalSales,
-                          icon: icAccount,
-                        )
-                      ],
+                    Obx(
+                      () => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          dashboardButton(
+                              count: (controller.avgRating.value /
+                                      controller.totalProducts.length)
+                                  .toString()
+                                  .substring(0, 3),
+                              title: rating,
+                              icon: icStar),
+                          dashboardButton(
+                            count: "503".numCurrency.toString(),
+                            title: totalSales,
+                            icon: icAccount,
+                          )
+                        ],
+                      ),
                     ),
                     10.heightBox,
                     const Divider(),
@@ -64,6 +80,9 @@ class HomeScreen extends StatelessWidget {
                           data = data.sortedBy((a, b) => b['p_wishlist']
                               .length
                               .compareTo(a['p_wishlist'].length));
+                          controller.totalProducts.clear();
+                          controller.totalProducts.addAll(data);
+                          controller.getRatings();
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

@@ -1,20 +1,34 @@
+import 'package:emartseller/const/const.dart';
 import 'package:emartseller/controllers/profile.controller.dart';
-import 'package:emartseller/services/store.service.dart';
 import 'package:emartseller/widgets/customFormField.widget.dart';
 import 'package:emartseller/widgets/cutomTextArea.widget.dart';
 import 'package:emartseller/widgets/loading.widget.dart';
 import 'package:emartseller/widgets/textStyle.widget.dart';
 import 'package:get/get.dart';
 
-import '../../const/const.dart';
+class EditShopSettingScreen extends StatefulWidget {
+  var shopData;
+  EditShopSettingScreen({super.key, required this.shopData});
 
-class ShopSettingScreen extends StatelessWidget {
-  const ShopSettingScreen({super.key});
+  @override
+  State<EditShopSettingScreen> createState() => _EditShopSettingScreenState();
+}
+
+class _EditShopSettingScreenState extends State<EditShopSettingScreen> {
+  var controller = Get.find<ProfileController>();
+  GlobalKey<FormState> formKey = GlobalKey();
+  @override
+  void initState() {
+    super.initState();
+    controller.shopNameController.text = widget.shopData['shop_name'];
+    controller.addressController.text = widget.shopData['address'];
+    controller.phoneController.text = widget.shopData['phone'];
+    controller.webController.text = widget.shopData['web'];
+    controller.descController.text = widget.shopData['description'];
+  }
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.find<ProfileController>();
-    GlobalKey<FormState> formKey = GlobalKey();
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
@@ -24,7 +38,8 @@ class ShopSettingScreen extends StatelessWidget {
           TextButton(
               onPressed: () async {
                 if (formKey.currentState!.validate()) {
-                  controller.uploadShopDetails(context);
+                  await controller.updateShopDetails(
+                      context, widget.shopData.id);
                   formKey.currentState!.reset();
                   Get.back();
                 }

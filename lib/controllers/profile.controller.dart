@@ -24,6 +24,9 @@ class ProfileController extends GetxController {
   var profileImgPath = ''.obs;
   var profileImageLink = '';
   var snapshotData;
+  var shopSnapData;
+  var primaryIndex = 0.obs;
+  var vxCtrl = VxPopupMenuController();
   changeImage(context) async {
     try {
       final img = await ImagePicker().pickImage(
@@ -31,10 +34,8 @@ class ProfileController extends GetxController {
         imageQuality: 100,
       );
       if (img == null) return;
-      print("%c ${img.path}");
       profileImgPath.value = img.path;
     } on PlatformException catch (e) {
-      print(" %c error: $e");
       VxToast.show(context, msg: e.message.toString());
     }
   }
@@ -114,11 +115,10 @@ class ProfileController extends GetxController {
     });
   }
 
-  updateShopDetails(context) async {
+  updateShopDetails(context, docId) async {
     isLoading(true);
     try {
-      var store =
-          firebaseStore.collection(vendorCollections).doc(currentUser!.uid);
+      var store = firebaseStore.collection(vendorDetailsCollections).doc(docId);
       await store.set({
         "shop_name": shopNameController.text,
         "address": addressController.text,
@@ -135,6 +135,77 @@ class ProfileController extends GetxController {
         textColor: white,
         showTime: 5000,
       );
+    } catch (e) {
+      isLoading(false);
+      VxToast.show(
+        context,
+        msg: "Error in updating shop details",
+        position: VxToastPosition.top,
+        bgColor: Vx.red800,
+        textColor: white,
+        showTime: 5000,
+      );
+    }
+  }
+
+  updatePrimaryAddress(docId) async {
+    try {
+      await firebaseStore
+          .collection(vendorDetailsCollections)
+          .doc(shopSnapData[primaryIndex.value].id)
+          .set({
+        "is_primary": false,
+      }, SetOptions(merge: true));
+      var store = firebaseStore.collection(vendorDetailsCollections).doc(docId);
+      await store.set({
+        "is_primary": true,
+      }, SetOptions(merge: true));
+    } catch (e) {}
+  }
+
+  deleteShopDetails(context, docId) async {
+    isLoading(true);
+    try {
+      var store = firebaseStore.collection(vendorDetailsCollections).doc(docId);
+      await store.delete();
+      isLoading(false);
+      VxToast.show(
+        context,
+        msg: "Deleted Sucessfully",
+        position: VxToastPosition.top,
+        bgColor: successColor,
+        textColor: white,
+        showTime: 5000,
+      );
+    } catch (e) {
+      isLoading(false);
+      VxToast.show(
+        context,
+        msg: "Error in deleting shop details",
+        position: VxToastPosition.top,
+        bgColor: Vx.red800,
+        textColor: white,
+        showTime: 5000,
+      );
+    }
+  }
+
+  uploadShopDetails(context) async {
+    isLoading(true);
+    try {
+      var store = firebaseStore.collection(vendorDetailsCollections).doc();
+      await store.set({
+        "shop_name": shopNameController.text,
+        "address": addressController.text,
+        "phone": phoneController.text,
+        "web": webController.text,
+        "description": descController.text,
+        "vendor_id": currentUser!.uid,
+        "is_verified": false,
+        "is_primary": false,
+      });
+
+      isLoading(false);
     } catch (e) {
       isLoading(false);
       VxToast.show(

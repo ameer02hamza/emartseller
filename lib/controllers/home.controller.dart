@@ -3,8 +3,16 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   var navIndex = 0.obs;
-
   var userName = "".obs;
+  var avgRating = 0.obs;
+  var totalProducts = [].obs;
+
+  getRatings() {
+    avgRating.value = 0;
+    totalProducts.forEach((e) {
+      avgRating.value += int.parse(e['p_rating']);
+    });
+  }
 
   @override
   void onInit() {

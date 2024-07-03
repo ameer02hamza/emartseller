@@ -4,6 +4,7 @@ import 'package:emartseller/controllers/auth.controller.dart';
 import 'package:emartseller/controllers/profile.controller.dart';
 import 'package:emartseller/screens/messages/messageList.screen.dart';
 import 'package:emartseller/screens/profiles/editPorfile.screen.dart';
+import 'package:emartseller/screens/settings/shopDetails.screen.dart';
 import 'package:emartseller/screens/settings/shopsetting.screen.dart';
 import 'package:emartseller/services/store.service.dart';
 import 'package:emartseller/widgets/loading.widget.dart';
@@ -83,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
                                   onTap: () {
                                     switch (index) {
                                       case 0:
-                                        Get.to(() => const ShopSettingScreen());
+                                        Get.to(() => const ShopDetailsScreen());
                                         break;
                                       case 1:
                                         Get.to(

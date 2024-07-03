@@ -7,6 +7,7 @@ User? currentUser = firebaseAuth.currentUser;
 
 //Colections
 const vendorCollections = "vendors";
+const vendorDetailsCollections = "vendordetails";
 const productCollections = "products";
 const orderCollection = "orders";
 const usersCollections = "users";

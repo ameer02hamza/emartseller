@@ -44,6 +44,8 @@ const shopDescHint = "Enter your shop description",
     shopAddress = "Shop Address",
     shopSettings = "Shop Settings",
     messages = "Messages";
+    const setPrimary="Set Primary";
+  
 
 //General Texts
 const save = "Save";

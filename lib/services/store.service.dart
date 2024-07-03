@@ -7,6 +7,12 @@ class StoreService {
         .where("id", isEqualTo: currentUser!.uid)
         .get();
   }
+  static getVendorDetails() {
+    return firebaseStore
+        .collection(vendorDetailsCollections)
+        .where("vendor_id", isEqualTo: currentUser!.uid)
+        .snapshots();
+  }
 
   static getOrdersByVendor() {
     return firebaseStore

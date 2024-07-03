@@ -29,11 +29,14 @@ class OrderScreen extends StatelessWidget {
                 if (!snapshot.hasData) {
                   return Center(child: loadingIndicator());
                 } else if (snapshot.data!.docs.isEmpty) {
-                  return Center(
-                      child: boldText(
-                          text: "No Orders available",
-                          color: fontGrey,
-                          size: 18));
+                  return SizedBox(
+                    height: context.screenHeight * 0.8,
+                    child: Center(
+                        child: boldText(
+                            text: "No Orders available",
+                            color: fontGrey,
+                            size: 18)),
+                  );
                 }
                 var data = snapshot.data.docs;
                 return Column(
