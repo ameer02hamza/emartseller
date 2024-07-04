@@ -8,7 +8,7 @@ Widget chatBubble(msg, isSender) {
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-            color: isSender ? darkGrey : fontGrey,
+            color: isSender ? linkColor : lightPrimary,
             borderRadius: BorderRadius.only(
               topLeft: const Radius.circular(20),
               topRight: const Radius.circular(20),

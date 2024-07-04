@@ -11,10 +11,10 @@ Widget customButton({
     onPressed: onPressed,
     style: ElevatedButton.styleFrom(
       backgroundColor: bgColor,
-      shape:const RoundedRectangleBorder(
-        // borderRadius: BorderRadius.circular(12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
     ),
-    child: boldText(text: title, color: white),
+    child: boldText(text: title, color: textColor),
   );
 }

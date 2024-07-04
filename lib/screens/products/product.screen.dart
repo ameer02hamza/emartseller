@@ -19,6 +19,7 @@ class PorductScreen extends StatelessWidget {
     var controller = Get.put(ProductController());
     var popCtrl = VxPopupMenuController();
     return Scaffold(
+      backgroundColor: primaryColor,
       appBar: appBarWidget(title: products),
       body: Padding(
           padding: const EdgeInsets.all(10),
@@ -31,7 +32,7 @@ class PorductScreen extends StatelessWidget {
                   );
                 } else if (snapshot.data!.docs.isEmpty) {
                   return Center(
-                    child: boldText(text: "No Products found", color: fontGrey),
+                    child: boldText(text: "No Products found", color: textfieldGrey),
                   );
                 }
                 var data = snapshot.data.docs;
@@ -40,7 +41,7 @@ class PorductScreen extends StatelessWidget {
                     child: Column(
                       children: List.generate(data.length, (index) {
                         return ListTile(
-                          tileColor: primaryColor.withOpacity(0.2),
+                          tileColor: lightPrimary,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           onTap: () {
@@ -54,12 +55,12 @@ class PorductScreen extends StatelessWidget {
                               .make(),
                           title: boldText(
                               text: "${data[index]['p_name']}",
-                              color: fontGrey),
+                              color: textfieldGrey),
                           subtitle: Row(
                             children: [
                               boldText(
                                   text: "${data[index]['p_price']}".numCurrency,
-                                  color: darkGrey),
+                                  color: lightGrey),
                               10.widthBox,
                               Visibility(
                                   visible: data[index]['is_featured'],
@@ -131,20 +132,20 @@ class PorductScreen extends StatelessWidget {
                                     .make();
                               },
                               clickType: VxClickType.singleClick,
-                              child: const Icon(Icons.more_vert)),
+                              child: const Icon(Icons.more_vert, color: textfieldGrey)),
                         ).box.margin(const EdgeInsets.only(bottom: 10)).make();
                       }),
                     ));
               })),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: primaryColor,
+          backgroundColor: lightPrimary,
           shape: const CircleBorder(),
           onPressed: () {
             Get.to(() => const AddNewProduct());
           },
           child: const Icon(
             Icons.add,
-            color: white,
+            color: textfieldGrey,
           )),
     );
   }

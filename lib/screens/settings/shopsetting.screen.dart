@@ -1,7 +1,7 @@
 import 'package:emartseller/controllers/profile.controller.dart';
 import 'package:emartseller/services/store.service.dart';
 import 'package:emartseller/widgets/customFormField.widget.dart';
-import 'package:emartseller/widgets/cutomTextArea.widget.dart';
+import 'package:emartseller/widgets/customTextArea.widget.dart';
 import 'package:emartseller/widgets/loading.widget.dart';
 import 'package:emartseller/widgets/textStyle.widget.dart';
 import 'package:get/get.dart';

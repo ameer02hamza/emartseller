@@ -42,12 +42,12 @@ Widget detailsCard({required context, required int index, required width}) {
                             child: Row(children: [
                               Icon(
                                 shopPopMenuIcons[i],
-                                color: fontGrey,
+                                color: textfieldGrey,
                               ),
                               5.widthBox,
                               generalText(
                                 text: shopPopMenu[i],
-                                color: fontGrey,
+                                color: textfieldGrey,
                               )
                             ])).onTap(
                           () async {
@@ -108,7 +108,7 @@ Widget detailsCard({required context, required int index, required width}) {
                   },
                   child: const Icon(
                     Icons.more_vert,
-                    color: fontGrey,
+                    color: textfieldGrey,
                   ),
                 )
               ],
@@ -118,11 +118,11 @@ Widget detailsCard({required context, required int index, required width}) {
         semiBoldText(
             text: profileCtrl.shopSnapData[index]['shop_name'],
             size: 14,
-            color: fontGrey),
+            color: textfieldGrey),
         generalText(
             text: profileCtrl.shopSnapData[index]['phone'].toString(),
             size: 14,
-            color: fontGrey),
+            color: textfieldGrey),
         linkText(
             text: profileCtrl.shopSnapData[index]['web'],
             size: 14,
@@ -130,25 +130,25 @@ Widget detailsCard({required context, required int index, required width}) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            semiBoldText(text: 'Address:', size: 14, color: fontGrey),
+            semiBoldText(text: 'Address:', size: 14, color: textfieldGrey),
             SizedBox(
                 width: width,
                 child: generalText(
                     text: profileCtrl.shopSnapData[index]['address'].toString(),
                     size: 14,
-                    color: fontGrey))
+                    color: textfieldGrey))
           ],
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            semiBoldText(text: 'Description:', size: 14, color: fontGrey),
+            semiBoldText(text: 'Description:', size: 14, color: textfieldGrey),
             SizedBox(
                 width: width,
                 child: generalText(
                     text: profileCtrl.shopSnapData[index]['description'],
                     size: 14,
-                    color: fontGrey))
+                    color: textfieldGrey))
           ],
         ),
       ],
@@ -158,10 +158,10 @@ Widget detailsCard({required context, required int index, required width}) {
       .outerShadowMd
       .padding(const EdgeInsets.only(bottom: 10, left: 10))
       .margin(const EdgeInsets.only(bottom: 10))
-      .white
+      .color(primaryColor)
       .border(
           color: profileCtrl.shopSnapData[index]['is_primary']
-              ? primaryColor
+              ? white
               : Colors.transparent,
           width: profileCtrl.shopSnapData[index]['is_primary'] ? 1 : 0)
       .rounded

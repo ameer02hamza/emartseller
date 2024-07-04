@@ -4,13 +4,13 @@ import 'package:intl/intl.dart' as intl;
 AppBar appBarWidget({required title}){
   return AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: white,
-        title: boldText(text: title, color: fontGrey),
+        // backgroundColor: white,
+        title: boldText(text: title, color: textfieldGrey),
         actions: [
           Center(
             child: boldText(
                 text: intl.DateFormat.yMMMd().format(DateTime.now()),
-                color: fontGrey).box.margin(const EdgeInsets.only(right: 10)).make(),
+                color: textfieldGrey).box.margin(const EdgeInsets.only(right: 10)).make(),
           )
         ],
       );

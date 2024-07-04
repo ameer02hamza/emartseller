@@ -1,5 +1,6 @@
 import 'package:emartseller/firebase_options.dart';
 import 'package:emartseller/screens/splash/splash.screen.dart';
+import 'package:emartseller/screens/test.screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: appname,
-      home: const SplashScreen(),
+      home: const TestNavBar(), //const SplashScreen(),
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.transparent,

@@ -16,7 +16,7 @@ Widget productDropdown(
       //     return "Please select a category";
       //   }
       // },
-      hint: generalText(text: title, color: fontGrey),
+      hint: generalText(text: title, color: textfieldGrey),
       value: dropValue.value == "" ? null : dropValue.value,
       items: list.map((e) {
         return DropdownMenuItem(
@@ -27,14 +27,13 @@ Widget productDropdown(
       onChanged: (value) async {
         if (title.toString().toLowerCase().contains("category")) {
           controller.subCategoryValue.value = "";
-
           controller.populateSubCategoryList(value.toString());
         }
         dropValue.value = value;
       },
     ))
         .box
-        .white
+        .color(lightPrimary)
         .roundedSM
         .padding(const EdgeInsets.symmetric(horizontal: 5))
         .width(Get.context!.screenWidth - 20)

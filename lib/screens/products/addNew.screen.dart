@@ -2,7 +2,7 @@ import 'package:emartseller/controllers/products.controller.dart';
 import 'package:emartseller/screens/products/components/productDropDown.component.dart';
 import 'package:emartseller/screens/products/components/productImage.component.dart';
 import 'package:emartseller/widgets/customFormField.widget.dart';
-import 'package:emartseller/widgets/cutomTextArea.widget.dart';
+import 'package:emartseller/widgets/customTextArea.widget.dart';
 import 'package:emartseller/widgets/loading.widget.dart';
 import 'package:emartseller/widgets/textStyle.widget.dart';
 import 'package:get/get.dart';
@@ -46,7 +46,7 @@ class _AddNewProductState extends State<AddNewProduct> {
         msg: "All Three Images are required",
         position: VxToastPosition.top,
         bgColor: red,
-        textColor: white,
+        textColor: textfieldGrey,
         showTime: 5000,
       );
       return;
@@ -68,22 +68,22 @@ class _AddNewProductState extends State<AddNewProduct> {
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: white),
-        title: boldText(text: "Add New Product", color: white),
+        iconTheme: const IconThemeData(color: textfieldGrey),
+        title: boldText(text: "Add New Product", color: textfieldGrey),
         actions: [
           Obx(
             () => controller.isLoading.value
                 ? Padding(
                     padding: const EdgeInsets.only(right: 10),
-                    child: loadingIndicator(color: white))
+                    child: loadingIndicator(color: textfieldGrey))
                 : TextButton(
                     onPressed: addNewProduct,
-                    child: generalText(text: "Save", color: white)),
+                    child: generalText(text: "Save", color: textfieldGrey)),
           )
         ],
       ),
       body: isLoading
-          ? Center(child: loadingIndicator(color: white))
+          ? Center(child: loadingIndicator(color: textfieldGrey))
           : SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(10),
@@ -128,7 +128,7 @@ class _AddNewProductState extends State<AddNewProduct> {
                       const Divider(),
                       generalText(
                           text: "Choose Product Images",
-                          color: lightGrey,
+                          color: textfieldGrey,
                           size: 18),
                       5.heightBox,
                       Obx(
@@ -140,7 +140,7 @@ class _AddNewProductState extends State<AddNewProduct> {
                                   ? Image.file(controller.pImages[index],
                                           fit: BoxFit.cover)
                                       .box
-                                      // .color(lightGrey)
+                                      // .color(textfieldGrey)
                                       .size(100, 100)
                                       .clip(Clip.hardEdge)
                                       .roundedSM
@@ -161,12 +161,12 @@ class _AddNewProductState extends State<AddNewProduct> {
                       5.heightBox,
                       generalText(
                           text: "Thumbnail will be the first Image",
-                          color: lightGrey,
+                          color: textfieldGrey,
                           size: 12),
                       const Divider(),
                       generalText(
                           text: "Choose Product Colors",
-                          color: lightGrey,
+                          color: textfieldGrey,
                           size: 18),
                       5.heightBox,
                       Obx(
@@ -191,7 +191,7 @@ class _AddNewProductState extends State<AddNewProduct> {
                                               : false,
                                           child: const Icon(
                                             Icons.check,
-                                            color: white,
+                                            color: textfieldGrey,
                                           ))
                                     ],
                                   ).onTap(() {

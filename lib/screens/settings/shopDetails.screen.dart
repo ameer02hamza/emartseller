@@ -21,9 +21,12 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
   var controller = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+      backgroundColor: primaryColor,
       appBar: AppBar(
-        title: boldText(text: 'Shop Details', size: 20, color: fontGrey),
+        iconTheme:const IconThemeData(color: textfieldGrey),
+        title: boldText(text: 'Shop Details', size: 20, color: textfieldGrey),
         centerTitle: true,
       ),
       body: Padding(
@@ -44,7 +47,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                         child: Center(
                             child: boldText(
                                 text: "No Record Found",
-                                color: primaryColor,
+                                color: textfieldGrey,
                                 size: 20)),
                       ),
                     );
@@ -72,7 +75,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                 })),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: primaryColor,
+          backgroundColor: lightPrimary.withOpacity(0.8),
           shape: const CircleBorder(),
           onPressed: () {
             Get.to(() => const ShopSettingScreen());

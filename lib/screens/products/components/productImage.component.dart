@@ -5,10 +5,13 @@ Widget productImages({required label, required onPress}) {
   return label
       .toString()
       .text
+      .textStyle(TextStyle(
+        color: textfieldGrey,
+      ))
       .bold
       .makeCentered()
       .box
-      .color(lightGrey)
+      .color(lightPrimary)
       .size(100, 100)
       .roundedSM
       .make();

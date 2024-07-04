@@ -11,6 +11,7 @@ import 'package:emartseller/widgets/loading.widget.dart';
 import 'package:emartseller/widgets/textStyle.widget.dart';
 import 'package:get/get.dart';
 import '../../const/const.dart';
+import 'package:async/async.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,7 +19,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<HomeController>();
+
     return Scaffold(
+      backgroundColor: primaryColor,
         appBar: appBarWidget(title: dashboard),
         body: Padding(
             padding: const EdgeInsets.all(10),
@@ -36,30 +39,47 @@ class HomeScreen extends StatelessWidget {
                               title: products,
                               icon: icProducts),
                           dashboardButton(
-                              count: "32", title: orders, icon: icOrders)
-                        ],
-                      ),
-                    ),
-                    10.heightBox,
-                    Obx(
-                      () => Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          dashboardButton(
                               count: (controller.avgRating.value /
                                       controller.totalProducts.length)
                                   .toString()
                                   .substring(0, 3),
                               title: rating,
                               icon: icStar),
-                          dashboardButton(
-                            count: "503".numCurrency.toString(),
-                            title: totalSales,
-                            icon: icAccount,
-                          )
                         ],
                       ),
                     ),
+                    10.heightBox,
+                    StreamBuilder(
+                        stream: StoreService.getOrdersByVendor(),
+                        builder: (context, AsyncSnapshot snapshot) {
+                          var data = [];
+                          if (!snapshot.hasData) {
+                            // return Center(child: loadingIndicator());
+                          } else if (snapshot.data.docs.isEmpty) {
+                            data = [];
+                          } else {
+                            data = snapshot.data.docs;
+                            controller.totalOrders.clear();
+                            controller.totalOrders.addAll(data);
+                            controller.getTotalSales();
+                          }
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              dashboardButton(
+                                  count: data.length,
+                                  title: orders,
+                                  icon: icOrders),
+                              dashboardButton(
+                                count: "${controller.totalSales}"
+                                    .numCurrency
+                                    .toString(),
+                                title: totalSales,
+                                icon: icAccount,
+                              )
+                            ],
+                          );
+                        }),
                     10.heightBox,
                     const Divider(),
                     StreamBuilder(
@@ -87,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               semiBoldText(
-                                  text: popular, color: fontGrey, size: 18),
+                                  text: popular, color: textfieldGrey, size: 18),
                               10.heightBox,
                               ListView(
                                 physics: const BouncingScrollPhysics(),

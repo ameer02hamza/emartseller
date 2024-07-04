@@ -1,9 +1,7 @@
-import 'package:emartseller/const/images.dart';
 import 'package:emartseller/controllers/orders.controller.dart';
 import 'package:emartseller/screens/orders/orderDetails.screen.dart';
 import 'package:emartseller/services/store.service.dart';
 import 'package:emartseller/widgets/appbar.widget.dart';
-import 'package:emartseller/widgets/customButton.widget.dart';
 import 'package:emartseller/widgets/loading.widget.dart';
 import 'package:emartseller/widgets/textStyle.widget.dart';
 import 'package:get/get.dart';
@@ -18,6 +16,7 @@ class OrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.put(OrdersController());
     return Scaffold(
+      backgroundColor: primaryColor,
       appBar: appBarWidget(title: orders),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -43,9 +42,9 @@ class OrderScreen extends StatelessWidget {
                   children: List.generate(
                       data.length,
                       (index) => ListTile(
-                          tileColor: primaryColor.withOpacity(0.2),
+                          tileColor: lightPrimary,
                           trailing:
-                              boldText(text: "\$2000", color: primaryColor),
+                              boldText(text: "\$2000", color: textfieldGrey),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           onTap: () {
@@ -53,25 +52,25 @@ class OrderScreen extends StatelessWidget {
                                   orderData: data[index],
                                 ));
                           },
-                          title: boldText(text: "code213", color: primaryColor),
+                          title: boldText(text: "code213", color: textfieldGrey),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
-                                  const Icon(Icons.calendar_month),
+                                  const Icon(Icons.calendar_month, color: textfieldGrey,),
                                   5.widthBox,
                                   boldText(
                                       text: intl.DateFormat.yMMMMEEEEd()
                                           .format(DateTime.now()),
-                                      color: fontGrey),
+                                      color: textfieldGrey),
                                 ],
                               ),
                               Row(
                                 children: [
-                                  const Icon(Icons.payment),
+                                  const Icon(Icons.payment, color: textfieldGrey,),
                                   5.widthBox,
-                                  boldText(text: "unpaid", color: red),
+                                  boldText(text: "unpaid", color: white),
                                 ],
                               )
                             ],

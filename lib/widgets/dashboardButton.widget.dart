@@ -12,20 +12,20 @@ Widget dashboardButton({required title, required count, required icon}) {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            boldText(text: title, size: 14),
-            boldText(text: count, size: 12),
+            boldText(text: title, size: 14, color: textfieldGrey),
+            boldText(text: count, size: 12, color: textfieldGrey),
           ],
         ),
       ),
       Image.asset(
         icon,
         width: 40,
-        color: white,
+        color: textfieldGrey,
       )
     ],
   )
       .box
-      .color(primaryColor)
+      .color(lightPrimary.withOpacity(0.8))
       .rounded
       .size(Get.context!.screenWidth * 0.4, 80)
       .padding(const EdgeInsets.all(8))

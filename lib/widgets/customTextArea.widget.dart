@@ -1,39 +1,28 @@
 import 'package:emartseller/const/const.dart';
 import 'package:emartseller/widgets/textStyle.widget.dart';
 
-Widget authFormField({
+Widget customTextArea({
   required String title,
   required String hintText,
-  icon,
-  isPswd = false,
+  isReq = false,
   controller,
 }) {
   return TextFormField(
     style:
         const TextStyle(color: textfieldGrey, decoration: TextDecoration.none),
-    maxLength: 40,
+    maxLines: 5,
     controller: controller,
-    obscureText: isPswd,
     decoration: InputDecoration(
-        prefixIcon: Icon(
-          icon,
-          color: textfieldGrey,
-        ),
-         counterText: "",
-      label: generalText(text: title, color: textfieldGrey),
+      counterText: "",
+      label: boldText(text: title, color: textfieldGrey),
+ 
       hintStyle: const TextStyle(
         color: textfieldGrey,
       ),
       hintText: hintText,
       isDense: true,
       fillColor: lightGrey,
-      // filled: true,
-      border: const OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        borderSide: BorderSide(
-          color: white,
-        ),
-      ),
+      border: InputBorder.none,
       focusedBorder: const OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
         borderSide: BorderSide(
@@ -52,13 +41,10 @@ Widget authFormField({
           color: red,
         ),
       ),
-        ),
+    ),
     validator: (value) {
-      if (value!.isEmpty) {
+      if (value!.isEmpty && isReq) {
         return "Please enter  $title.";
-      }
-      if (isPswd && value.length < 6) {
-        return "Password must be at least 6 characters long.";
       }
       return null;
     },

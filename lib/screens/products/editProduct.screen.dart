@@ -2,7 +2,7 @@ import 'package:emartseller/controllers/products.controller.dart';
 import 'package:emartseller/screens/products/components/productDropDown.component.dart';
 import 'package:emartseller/screens/products/components/productImage.component.dart';
 import 'package:emartseller/widgets/customFormField.widget.dart';
-import 'package:emartseller/widgets/cutomTextArea.widget.dart';
+import 'package:emartseller/widgets/customTextArea.widget.dart';
 import 'package:emartseller/widgets/loading.widget.dart';
 import 'package:emartseller/widgets/textStyle.widget.dart';
 import 'package:get/get.dart';

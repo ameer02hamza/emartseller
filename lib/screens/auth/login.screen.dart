@@ -29,87 +29,68 @@ class LoginScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: primaryColor,//.withOpacity(0.5),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
-            generalText(
-              text: welcome,
-              size: 18,
+            SizedBox(
+              height: context.screenHeight / 2.5,
+              width: double.infinity,
+              child: Image.asset(imgLogin),
             ),
-            Row(
-              children: [
-                Image.asset(
-                  icLogo,
-                  height: 80,
-                  width: 80,
-                  fit: BoxFit.contain,
-                )
-                    .box
-                    .border(color: white)
-                    .rounded
-                    .padding(const EdgeInsets.all(8))
-                    .make(),
-                10.widthBox,
-                boldText(
-                  text: appname,
-                  color: white,
-                  size: 20,
-                )
-              ],
-            ),
-            (context.screenHeight * 0.09).heightBox,
+            // semiBoldText(text: welcome, size: 14, color: white),
             SingleChildScrollView(
-                    child: Form(
-                        key: formKey,
-                        child: Obx(() => Column(
-                              children: [
-                                authFormField(
-                                  hintText: emailHint,
-                                  title: email,
-                                  icon: Icons.email,
-                                  controller: controller.emailController,
-                                ),
-                                15.heightBox,
-                                authFormField(
-                                  hintText: passwordHint,
-                                  title: password,
-                                  icon: Icons.lock,
-                                  isPswd: true,
-                                  controller: controller.passwordController,
-                                ),
-                                10.heightBox,
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: generalText(
-                                      text: "$forgotPassword?",
-                                      color: primaryColor),
-                                ),
-                                10.heightBox,
-                                SizedBox(
-                                    width: context.screenWidth - 50,
-                                    child: controller.isLoading.value
-                                        ? Center(child: loadingIndicator())
-                                        : customButton(
-                                            title: login,
-                                            onPressed: loginUser,
-                                            bgColor: primaryColor,
-                                            textColor: white,
-                                          )),
-                              ],
-                            ))))
-                .box
-                .white
-                .outerShadow3Xl
-                .rounded
-                .padding(const EdgeInsets.all(8))
-                .make(),
-            Center(
+                child: Form(
+                    key: formKey,
+                    child: Obx(() => Column(
+                          children: [
+                            authFormField(
+                              hintText: emailHint,
+                              title: email,
+                              icon: Icons.email,
+                              controller: controller.emailController,
+                            ),
+                            15.heightBox,
+                            authFormField(
+                              hintText: passwordHint,
+                              title: password,
+                              icon: Icons.lock,
+                              isPswd: true,
+                              controller: controller.passwordController,
+                            ),
+                            10.heightBox,
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: generalText(
+                                  text: "$forgotPassword?",
+                                  color: textfieldGrey),
+                            ),
+                            10.heightBox,
+                            SizedBox(
+                                width: context.screenWidth - 50,
+                                child: controller.isLoading.value
+                                    ? Center(child: loadingIndicator(color: textfieldGrey))
+                                    : customButton(
+                                        title: login,
+                                        onPressed: loginUser,
+                                        bgColor: lightPrimary,
+                                        textColor: textfieldGrey,
+                                      )),
+                                        Center(
               child: generalText(text: anyProblem, color: lightGrey, size: 14),
             ),
+                          ],
+                        )
+                            .box
+                            .rounded
+                            .outerShadow3Xl
+                            .color(primaryColor)
+                            .padding(const EdgeInsets.all(15))
+                            .make()))),
+          
             const Spacer(),
             Center(child: boldText(text: credit))
           ],

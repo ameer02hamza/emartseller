@@ -21,10 +21,10 @@ class ProfileScreen extends StatelessWidget {
     var authCtrl = Get.put(AuthController());
     var controller = Get.put(ProfileController());
     return Scaffold(
-        backgroundColor: white,
+        backgroundColor: primaryColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: boldText(text: generalSetting, size: 18, color: fontGrey),
+          title: boldText(text: generalSetting, size: 18, color: textfieldGrey),
           actions: [
             IconButton(
                 onPressed: () {
@@ -32,13 +32,14 @@ class ProfileScreen extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.edit,
-                  color: fontGrey,
+                  color: textfieldGrey,
                 )),
             TextButton(
                 onPressed: () {
                   authCtrl.logoutMethod(context: context);
                 },
-                child: generalText(text: logout, size: 14, color: fontGrey))
+                child:
+                    generalText(text: logout, size: 14, color: textfieldGrey))
           ],
         ),
         body: FutureBuilder(
@@ -51,7 +52,7 @@ class ProfileScreen extends StatelessWidget {
             } else if (snapshot.data!.docs.isEmpty) {
               return Center(
                   child: boldText(
-                      text: "No Record Found", color: primaryColor, size: 20));
+                      text: "No Record Found", color: textfieldGrey, size: 20));
             }
             var data = snapshot.data!.docs.first;
             controller.snapshotData = data;
@@ -68,8 +69,10 @@ class ProfileScreen extends StatelessWidget {
                           .roundedFull
                           .clip(Clip.antiAlias)
                           .make(),
-                  title: boldText(text: data["vendor_name"], color: fontGrey),
-                  subtitle: generalText(text: data["email"], color: fontGrey),
+                  title:
+                      boldText(text: data["vendor_name"], color: textfieldGrey),
+                  subtitle:
+                      generalText(text: data["email"], color: textfieldGrey),
                 ),
                 const Divider(),
                 Padding(
@@ -94,10 +97,10 @@ class ProfileScreen extends StatelessWidget {
                                     }
                                   },
                                   leading: Icon(settingIcons[index],
-                                      color: fontGrey),
+                                      color: textfieldGrey),
                                   title: boldText(
                                       text: settingList[index],
-                                      color: fontGrey))
+                                      color: textfieldGrey))
                               .box
                               .margin(const EdgeInsets.only(bottom: 10))
                               .make()),
@@ -105,7 +108,7 @@ class ProfileScreen extends StatelessWidget {
                         .box
                         .outerShadow3Xl
                         .rounded
-                        .white
+                        .color(primaryColor)
                         .padding(const EdgeInsets.all(10))
                         .make()),
               ],

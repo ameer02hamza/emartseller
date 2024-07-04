@@ -80,7 +80,7 @@ class ChatScreen extends StatelessWidget {
                     onPressed: () {},
                     icon: const Icon(
                       Icons.send,
-                      color: textfieldGrey,
+                      color: lightPrimary,
                       size: 30,
                     ))
               ],
